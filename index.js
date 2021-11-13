@@ -58,20 +58,20 @@ async function run() {
     });
     // get reviews
     app.get("/review", async (req, res) => {
-      const result = reviewCollection.findOne({});
+      const result = reviewCollection.find({});
       const review = await result.toArray();
       res.send(review);
     });
     // Add Reviews
-    app.post("/addreviews", async (req, res) => {
-      const addreviews = req.body;
+    app.post("/review", async (req, res) => {
+      const reviews = req.body;
       const result = await reviewCollection.insertOne(reviews);
       res.send(result);
-      console.log(addreviews);
     });
     // get single Review
-    app.get("/placereview/:id", async (req, res) => {
+    app.get("/review/:id", async (req, res) => {
       console.log("getting review", id);
+      const id = req.params.id;
       const query = { _id: ObjectId(id) };
       const result = await reviewCollection.findOne(query);
       res.send(result);
